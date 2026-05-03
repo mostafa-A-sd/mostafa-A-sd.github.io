@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سوق مصطفى - كل شي في مكان واحد</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif;}
+        body {background: #f5f5f5; color: #222;}
+        header {background: #FFD700; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+        header h1 {font-size: 28px; margin-bottom: 10px;}
+        .btn-add {background: #222; color: #FFD700; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 10px;}
+        .categories {display: flex; gap: 10px; padding: 15px; overflow-x: auto; background: white;}
+        .cat-btn {background: #eee; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; white-space: nowrap;}
+        .cat-btn.active {background: #222; color: #FFD700;}
+        .products {padding: 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px;}
+        .card {background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+        .card img {width: 100%; height: 160px; object-fit: cover;}
+        .card-body {padding: 12px;}
+        .card-body h3 {font-size: 16px; margin-bottom: 5px; height: 40px;}
+        .price {color: #007B00; font-weight: bold; font-size: 18px; margin: 8px 0;}
+        .btn-order {background: #25D366; color: white; width: 100%; padding: 10px; border: none; border-radius: 8px; font-weight: bold; text-decoration: none; display: block; text-align: center;}
+        footer {text-align: center; padding: 20px; background: #222; color: #FFD700; margin-top: 30px;}
+        .hidden {display: none;}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🛒 سوق مصطفى</h1>
+        <p>كل شي في مكان واحد</p>
+        <a href="https://wa.me/249117482348?text=عايز%20اعرض%20منتج%20في%20السوق" class="btn-add">+ اعرض منتجك</a>
+    </header>    <div class="categories">
+        <button class="cat-btn active" onclick="filterCat('all')">الكل</button>
+        <button class="cat-btn" onclick="filterCat('phones')">هواتف</button>
+        <button class="cat-btn" onclick="filterCat('clothes')">ملابس</button>
+        <button class="cat-btn" onclick="filterCat('home')">أواني منزلية</button>
+        <button class="cat-btn" onclick="filterCat('electric')">أدوات كهربائية</button>
+    </div>
+
+    <div class="products" id="products">
+        <!-- هواتف -->
+        <div class="card phones">
+            <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400" alt="ايفون">
+            <div class="card-body">
+                <h3>ايفون 14 برو</h3>
+                <div class="price">550,000 ج.س</div>
+                <a href="https://wa.me/249117482348?text=عايز%20اطلب:%20ايفون%2014%20برو%20-%20السعر:%20550,000%20ج.س" class="btn-order">اطلب الآن</a>
+            </div>
+        </div>
+
+        <!-- ملابس -->
+        <div class="card clothes">
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" alt="تيشيرت">
+            <div class="card-body">
+                <h3>تيشيرت قطن</h3>
+                <div class="price">8,000 ج.س</div>
+                <a href="https://wa.me/249117482348?text=عايز%20اطلب:%20تيشيرت%20قطن%20-%20السعر:%208,000%20ج.س" class="btn-order">اطلب الآن</a>
+            </div>
+        </div>
+
+        <!-- أواني منزلية -->
+        <div class="card home">
+            <img src="https://images.unsplash.com/photo-1583778176476-4a8b02b64c23?w=400" alt="طقم حلل">
+            <div class="card-body">
+                <h3>طقم حلل جرانيت</h3>
+                <div class="price">45,000 ج.س</div>
+                <a href="https://wa.me/249117482348?text=عايز%20اطلب:%20طقم%20حلل%20جرانيت%20-%20السعر:%2045,000%20ج.س" class="btn-order">اطلب الآن</a>
+            </div>
+        </div>
+
+        <!-- أدوات كهربائية -->
+        <div class="card electric">
+            <img src="https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=400" alt="خلاط">
+            <div class="card-body">
+                <h3>خلاط كينوود</h3>
+                <div class="price">32,000 ج.س</div>
+                <a href="https://wa.me/249117482348?text=عايز%20اطلب:%20خلاط%20كينوود%20-%20السعر:%2032,000%20ج.س" class="btn-order">اطلب الآن</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        سوق مصطفى © 2026 | للطلب والاستفسار واتساب: 0117482348
+    </footer>
+
+    <script>
+        function filterCat(cat) {
+            let cards = document.querySelectorAll('.card');
+            let btns = document.querySelectorAll('.cat-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            cards.forEach(card => {
+                if(cat === 'all' || card.classList.contains(cat)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
